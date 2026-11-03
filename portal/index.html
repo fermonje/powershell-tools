@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071d3b">
+  <title>CIT · Diagnóstico MFA</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="https://ia.consultoresenit.com.ar/" aria-label="Consultores en IT">
+        <img src="/cit-logo.svg" width="143" height="47" alt="Consultores en IT">
+      </a>
+      <span class="portal-label">Portal de clientes</span>
+    </div>
+  </header>
+  <main id="contenido">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">MICROSOFT ENTRA ID</p>
+          <h1>Diagnóstico MFA</h1>
+          <p class="intro">Identificá usuarios que dependen de SMS o llamadas y seguí el avance de tu empresa.</p>
+        </div>
+        <aside class="milestone" aria-label="Calendario de Microsoft">
+          <p class="eyebrow">RETIRO DE SMS Y VOZ DE MICROSOFT</p>
+          <p class="milestone-date"><time datetime="2027-02-01">1 feb 2027</time></p>
+          <p>Fecha general. Administradores globales y usuarios externos tienen plazo hasta el 1 de julio.</p>
+          <a href="https://learn.microsoft.com/entra/identity/authentication/concept-sms-voice-retirement">Ver alcance en Microsoft Learn <span aria-hidden="true">↗</span></a>
+        </aside>
+      </div>
+    </section>
+    <div class="container workspace">
+      <p id="demo" hidden>Demo local · Dos empresas ficticias. Usá solamente datos sintéticos.</p>
+      <section class="controls" aria-labelledby="relevamientos">
+        <div><p class="eyebrow">ESPACIO DE TRABAJO</p><h2 id="relevamientos">Relevamientos</h2></div>
+        <label>Empresa<select id="customer"></select></label>
+        <form id="upload">
+          <label>Resumen del relevamiento<input type="file" id="file" accept=".json,application/json" required aria-describedby="upload-hint"></label>
+          <button>Cargar resumen</button>
+        </form>
+        <p id="upload-hint">Seleccioná el JSON agregado generado por el colector CIT.</p>
+      </section>
+      <p id="status" role="status"></p>
+      <section id="dashboard" hidden>
+        <div class="section-heading"><h2>Último relevamiento</h2><p id="collected"></p></div>
+        <div id="cards" class="cards"></div>
+        <h2>Histórico</h2>
+        <div class="table"><table><thead><tr><th scope="col">Fecha</th><th scope="col">Usuarios</th><th scope="col">Alternativa</th><th scope="col">Solo SMS o voz</th><th scope="col">Sin MFA</th></tr></thead><tbody id="history"></tbody></table></div>
+      </section>
+      <p class="foot">Los indicadores se basan en métodos registrados. Se excluyen las cuentas Guest. Interpretá los resultados junto con las políticas y el proveedor de telefonía del tenant.</p>
+    </div>
+  </main>
+</body>
+</html>

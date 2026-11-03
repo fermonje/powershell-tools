@@ -1,0 +1,65 @@
+:root {
+  --navy: #071d3b;
+  --blue: #0b2b57;
+  --bright: #005fbc;
+  --surface: #edf0f5;
+  --line: #dce2eb;
+  --muted: #41566f;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--surface); color: var(--navy); font: 16px/1.5 system-ui, sans-serif; }
+[hidden] { display: none !important; }
+.container { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+.site-header { background: var(--navy); color: white; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 76px; }
+.header-inner img { display: block; max-width: 100%; height: auto; }
+.portal-label { border: 1px solid #536c8a; border-radius: 999px; padding: 6px 13px; color: #e1ebf7; font-size: .78rem; }
+.hero {
+  color: white;
+  background-color: var(--blue);
+  background-image: radial-gradient(ellipse at 85% 5%, #1b4d83, transparent 60%), linear-gradient(115deg, var(--navy), var(--blue));
+}
+.hero-inner { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; padding-block: clamp(40px, 7vw, 82px); }
+.eyebrow { margin: 0 0 10px; color: var(--bright); font-size: .74rem; font-weight: 800; letter-spacing: .13em; }
+.hero .eyebrow { color: #c0dcfc; }
+h1, h2 { margin: 0; letter-spacing: -.035em; line-height: 1.1; }
+h1 { font-size: clamp(2.55rem, 6vw, 4.7rem); }
+h2 { font-size: clamp(1.45rem, 3vw, 1.9rem); }
+.intro { max-width: 470px; margin: 18px 0 0; color: #dce8f6; font-size: 1.1rem; }
+.milestone { padding: 24px; border: 1px solid #6c8aaa; border-radius: 20px; background: #081f41b3; }
+.milestone p { margin-block: 0 8px; }
+.milestone-date { font-size: clamp(1.65rem, 4vw, 2.4rem); font-weight: 750; letter-spacing: -.04em; }
+.milestone a { color: #cae4ff; font-size: .88rem; }
+.workspace { padding-block: 30px 44px; }
+.controls, .cards article, .table { background: white; border: 1px solid var(--line); border-radius: 18px; }
+.controls { display: grid; grid-template-columns: minmax(145px, .8fr) minmax(145px, 1fr) minmax(0, 2fr); align-items: end; gap: 18px; padding: clamp(16px, 3vw, 25px); }
+form { display: flex; align-items: end; gap: 10px; min-width: 0; }
+label { display: grid; gap: 6px; min-width: 0; font-size: .86rem; font-weight: 650; }
+form label { flex: 1; }
+select, input, button { font: inherit; min-height: 42px; padding: 8px 10px; width: 100%; min-width: 0; border: 1px solid #a6b6ca; border-radius: 9px; background: white; color: var(--navy); }
+input::file-selector-button { margin-right: 7px; border: 0; border-radius: 4px; background: var(--surface); color: var(--blue); padding: 3px 6px; font: inherit; cursor: pointer; }
+button { width: auto; background: var(--blue); color: white; border-color: var(--blue); font-size: .9rem; font-weight: 650; cursor: pointer; }
+button:hover { background: #173f70; }
+button:disabled { opacity: .6; cursor: wait; }
+:focus-visible { outline: 3px solid #368de0; outline-offset: 3px; }
+#upload-hint { grid-column: 1 / -1; margin: 0; }
+#status { min-height: 1.5em; margin-block: 12px; }
+.section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+#collected { margin: 0; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 15px 0 30px; }
+.cards article { padding: 16px; color: var(--muted); font-size: .88rem; }
+.cards strong { display: block; color: var(--blue); font-size: 2rem; letter-spacing: -.04em; }
+.table { overflow: auto; margin: 14px 0 24px; }
+table { border-collapse: collapse; width: 100%; white-space: nowrap; text-align: left; }
+td, th { padding: 12px 16px; border-bottom: 1px solid var(--line); }
+th { background: #f8fafc; font-size: .85rem; }
+tbody tr:last-child td { border-bottom: 0; }
+.foot, #demo, #upload-hint, #collected { color: var(--muted); font-size: .86rem; }
+#demo { margin-top: 0; padding: 12px 16px; background: #fff0cc; border-radius: 12px; }
+@media (max-width: 820px) {
+  .hero-inner, .controls { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (max-width: 430px) {
+  form { align-items: stretch; flex-direction: column; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
