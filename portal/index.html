@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#071d3b">
   <title>CIT · Diagnóstico MFA</title>
   <link rel="stylesheet" href="/style.css">
-  <script src="/app.js" defer></script>
+  <script src="/app.js" type="module"></script>
 </head>
 <body>
   <header class="site-header">
@@ -22,32 +22,62 @@
       <div class="container hero-inner">
         <div>
           <p class="eyebrow">MICROSOFT ENTRA ID</p>
-          <h1>Diagnóstico MFA</h1>
-          <p class="intro">Identificá usuarios que dependen de SMS o llamadas y seguí el avance de tu empresa.</p>
+          <h1>Preparación para el retiro de SMS y voz</h1>
+          <p class="intro" id="tenant-context">Microsoft Entra ID</p>
         </div>
-        <aside class="milestone" aria-label="Calendario de Microsoft">
-          <p class="eyebrow">RETIRO DE SMS Y VOZ DE MICROSOFT</p>
+        <aside class="milestone" id="milestone" aria-label="Calendario de Microsoft">
+          <div class="milestone-copy">
+            <h2>Migración de métodos de autenticación</h2>
+            <p class="milestone-detail">Microsoft retirará SMS y voz como métodos de autenticación de Entra ID.</p>
+            <a href="https://learn.microsoft.com/entra/identity/authentication/concept-sms-voice-retirement">Ver alcance en Microsoft Learn <span aria-hidden="true">↗</span></a>
+          </div>
           <p class="milestone-date"><time datetime="2027-02-01">1 feb 2027</time></p>
-          <p>Fecha general. Administradores globales y usuarios externos tienen plazo hasta el 1 de julio.</p>
-          <a href="https://learn.microsoft.com/entra/identity/authentication/concept-sms-voice-retirement">Ver alcance en Microsoft Learn <span aria-hidden="true">↗</span></a>
+          <p class="milestone-date"><time datetime="2027-07-01">1 jul 2027</time><small>Administradores globales y usuarios externos</small></p>
         </aside>
       </div>
     </section>
     <div class="container workspace">
+      <div id="workspace-controls">
       <p id="demo" hidden>Demo local · Dos empresas ficticias. Usá solamente datos sintéticos.</p>
       <section class="controls" aria-labelledby="relevamientos">
         <div><p class="eyebrow">ESPACIO DE TRABAJO</p><h2 id="relevamientos">Relevamientos</h2></div>
-        <label>Empresa<select id="customer"></select></label>
         <form id="upload">
-          <label>Resumen del relevamiento<input type="file" id="file" accept=".json,application/json" required aria-describedby="upload-hint"></label>
-          <button>Cargar resumen</button>
+          <label>Resúmenes del relevamiento<input type="file" id="file" accept=".json,application/json" multiple required disabled aria-describedby="upload-hint"></label>
+          <button id="compare" disabled>Ver resultados</button>
         </form>
-        <p id="upload-hint">Seleccioná el JSON agregado generado por el colector CIT.</p>
+        <p id="upload-hint">Seleccioná uno o varios JSON de la misma empresa. Los archivos se leen en el navegador y se descartan al recargar la página.</p>
       </section>
       <p id="status" role="status"></p>
+      </div>
       <section id="dashboard" hidden>
-        <div class="section-heading"><h2>Último relevamiento</h2><p id="collected"></p></div>
+        <div class="section-heading">
+          <div><h2>Último relevamiento</h2><p id="collected"></p></div>
+          <button id="change-files" type="button" aria-controls="workspace-controls" aria-expanded="false">Cambiar archivos</button>
+        </div>
         <div id="cards" class="cards"></div>
+        <div class="charts">
+          <section class="chart" aria-labelledby="distribution-title">
+            <h3 id="distribution-title">Estado de preparación</h3>
+            <p>Usuarios del último relevamiento</p>
+            <div id="distribution-bar"></div>
+            <ul id="distribution" class="chart-list"></ul>
+          </section>
+          <section class="chart" aria-labelledby="methods-title">
+            <h3 id="methods-title">Métodos de autenticación</h3>
+            <p id="methods-note"></p>
+            <ul id="methods" class="chart-list"></ul>
+          </section>
+          <section class="chart chart-wide" aria-labelledby="trend-title">
+            <h3 id="trend-title">Evolución por relevamiento</h3>
+            <p id="trend-note"></p>
+            <ul class="chart-legend" aria-label="Grupos del gráfico">
+              <li class="ready">Con alternativa</li>
+              <li class="smsOnly">Solo SMS o voz</li>
+              <li class="noMfa">Sin MFA</li>
+            </ul>
+            <div id="trend"></div>
+          </section>
+        </div>
         <h2>Histórico</h2>
         <div class="table"><table><thead><tr><th scope="col">Fecha</th><th scope="col">Usuarios</th><th scope="col">Alternativa</th><th scope="col">Solo SMS o voz</th><th scope="col">Sin MFA</th></tr></thead><tbody id="history"></tbody></table></div>
       </section>

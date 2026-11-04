@@ -54,7 +54,14 @@ function canonicalReport(input, id) {
   const counts = Object.fromEntries(fields.map(key => [key, input.counts?.[key]]));
   if (Object.values(counts).some(value => !Number.isSafeInteger(value) || value < 0 || value > 100000000) ||
       counts.ready + counts.smsOnly + counts.noMfa !== counts.total || counts.adminSms > counts.smsOnly) return;
-  return { version: 1, tenantId: id, collectedAt: new Date(timestamp).toISOString(), counts };
+  const report = { version: 1, tenantId: id, collectedAt: new Date(timestamp).toISOString(), counts };
+  if (input.methodCounts !== undefined) {
+    const keys = ['microsoftAuthenticatorPush', 'mobilePhone', 'softwareOneTimePasscode', 'passKeyDeviceBoundAuthenticator', 'fido2'];
+    const entries = keys.map(key => [key, input.methodCounts?.[key]]);
+    if (entries.some(([, value]) => !Number.isSafeInteger(value) || value < 0 || value > counts.total)) return;
+    report.methodCounts = Object.fromEntries(entries);
+  }
+  return report;
 }
 
 async function storeReport(id, report) {

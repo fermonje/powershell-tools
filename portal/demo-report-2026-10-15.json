@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "tenantId": "11111111-1111-4111-8111-111111111111",
+  "collectedAt": "2026-10-15T12:00:00Z",
+  "counts": {
+    "total": 120,
+    "ready": 102,
+    "smsOnly": 13,
+    "noMfa": 5,
+    "adminSms": 1,
+    "guestsExcluded": 4
+  },
+  "methodCounts": {
+    "microsoftAuthenticatorPush": 82,
+    "mobilePhone": 32,
+    "softwareOneTimePasscode": 35,
+    "passKeyDeviceBoundAuthenticator": 23,
+    "fido2": 15
+  }
+}

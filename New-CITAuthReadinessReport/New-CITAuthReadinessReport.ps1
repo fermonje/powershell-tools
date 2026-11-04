@@ -338,15 +338,20 @@ $idShort = if ($tenantId.Length -ge 8) { $tenantId.Substring(0, 8) } else { $ten
 $reportName = "CIT-AuthReadiness-$idShort-$stamp"
 if ($ExportSummary -or $SummaryOnly -or $PortalUrl) {
     $counts = [ordered]@{ total = $users.Count; ready = 0; smsOnly = 0; noMfa = 0; adminSms = 0; guestsExcluded = $guestsExcluded }
+    $methodCounts = [ordered]@{ microsoftAuthenticatorPush = 0; mobilePhone = 0; softwareOneTimePasscode = 0; passKeyDeviceBoundAuthenticator = 0; fido2 = 0 }
     foreach ($user in $users) {
         $counts[$user.category]++
         if ($user.admin -and $user.category -eq 'smsOnly') { $counts.adminSms++ }
+        foreach ($method in ($user.methods | Sort-Object -Unique)) {
+            if ($methodCounts.Contains($method)) { $methodCounts[$method]++ }
+        }
     }
     $summary = [ordered]@{
         version = 1
         tenantId = $tenantId
         collectedAt = [datetime]::UtcNow.ToString('o')
         counts = $counts
+        methodCounts = $methodCounts
     }
     $summaryPath = Join-Path $OutputFolder "$reportName.json"
     [IO.File]::WriteAllText($summaryPath, ($summary | ConvertTo-Json -Depth 4), [Text.UTF8Encoding]::new($false))

@@ -9,5 +9,12 @@
     "noMfa": 10,
     "adminSms": 2,
     "guestsExcluded": 4
+  },
+  "methodCounts": {
+    "microsoftAuthenticatorPush": 62,
+    "mobilePhone": 48,
+    "softwareOneTimePasscode": 26,
+    "passKeyDeviceBoundAuthenticator": 12,
+    "fido2": 8
   }
 }
